@@ -99,14 +99,43 @@ Instead, use CSS media queries:
 }
 ```
 
-### Breakpoints for Media Queries
-| Breakpoint | Min-width |
-|------------|-----------|
-| Mobile | 0 |
-| Tablet (sm) | 600px |
-| Desktop (md) | 960px |
-| Large (lg) | 1280px |
-| XL | 1920px |
+### Breakpoints for Media Queries (Custom)
+
+**Note:** We use custom breakpoints that differ from Vuetify defaults for better tablet coverage:
+
+| Breakpoint | Max-width | Usage |
+|------------|-----------|-------|
+| Mobile | 599px | Phone portrait |
+| Tablet | 1199px | Tablets and small laptops |
+| Desktop | >1199px | Full desktop experience |
+
+```scss
+// Mobile-first example
+.element {
+  height: 8rem;  // mobile default
+
+  @media (min-width: 600px) {
+    height: 10rem;  // tablet
+  }
+
+  @media (min-width: 1200px) {
+    height: 19rem;  // desktop
+  }
+}
+
+// Desktop-first example (current approach)
+.element {
+  height: 19rem;  // desktop default
+
+  @media (max-width: 1199px) {
+    height: 10rem;  // tablet
+  }
+
+  @media (max-width: 599px) {
+    height: 8rem;  // mobile
+  }
+}
+```
 
 ---
 
@@ -162,10 +191,12 @@ The site uses fluid typography that scales all rem-based sizes proportionally ba
 | 2400px+ | ~20px |
 | 1920px | ~18px |
 | 1440px | ~16px |
-| 480px | ~14px |
-| 320px | ~12px |
+| 480px | ~19px |
+| 320px | ~18px |
 
 This is implemented in `main.scss` using CSS custom properties and the formula from Finsweet's fluid design generator.
+
+**Note:** Mobile sizes (≤480px) were increased from 12-14px to 18-19px because text was too small on phones.
 
 ### Logo
 - File: `reference/ms-logo.svg`
@@ -496,6 +527,45 @@ reference/
 ### CSS Lessons Learned
 - **Flex container height inheritance is unreliable**: `height: 100%` doesn't work reliably through nested flex containers. Instead of relying on percentage heights through a flex chain, set explicit heights directly on the element that needs them (e.g., set `height: 8rem` on the `<img>` itself, not on parent containers).
 - **When responsive heights don't apply**: If media query heights aren't working, check if a child element has its own explicit height that overrides the parent's constraint.
+- **Button height consistency**: Don't set `line-height: 1` on buttons if you want them to match other pill-shaped elements like filter chips. The default line-height allows for more consistent vertical sizing.
+- **CSS treeshaking**: Vuetify CSS treeshaking works in **production builds only**, not in dev mode. In dev, all styles are included for faster hot-reload. Run `npm run build` to see actual bundle sizes.
+
+### How to Adjust Gallery Photo Scroll Heights
+
+The photo scroll heights must be set in **TWO files** to stay in sync:
+
+1. **`GalleryCard.vue`** - Sets the container height (`.gallery-card__images`)
+2. **`GalleryImageStrip.vue`** - Sets the actual image height (`.gallery-image-strip__image`)
+
+**Current values:**
+| Breakpoint | Container | Images |
+|------------|-----------|--------|
+| Desktop (>1199px) | 19rem | 19rem |
+| Tablet (≤1199px) | 10rem | 10rem |
+| Mobile (≤599px) | 8rem | 8rem |
+
+**To change heights:**
+```scss
+// In GalleryCard.vue - update container
+&__images {
+  height: 19rem;  // desktop
+}
+@media (max-width: 1199px) {
+  &__images { height: 10rem; }  // tablet
+}
+@media (max-width: 599px) {
+  &__images { height: 8rem; }  // mobile
+}
+
+// In GalleryImageStrip.vue - update images to match
+&__image {
+  height: 19rem;  // desktop
+  @media (max-width: 1199px) { height: 10rem; }  // tablet
+  @media (max-width: 599px) { height: 8rem; }  // mobile
+}
+```
+
+**Important:** Both files must have matching values or images will be clipped or scroll vertically within the container.
 
 ### Components
 - Build atoms first (base/)
