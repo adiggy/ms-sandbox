@@ -132,7 +132,7 @@ defineProps<{
 
     &__images {
       width: 100%;
-      height: 8rem;
+      height: 6rem;
     }
   }
 }
@@ -140,7 +140,7 @@ defineProps<{
 @media (max-width: 599px) {
   .gallery-card {
     &__images {
-      height: 5rem;
+      height: 4rem;
     }
 
     &__title {
