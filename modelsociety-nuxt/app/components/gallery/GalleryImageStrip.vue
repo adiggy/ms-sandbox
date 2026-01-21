@@ -25,8 +25,16 @@ defineProps<{
   position: relative;
   display: flex;
   overflow: hidden;
-  flex: 1;
-  height: 100%;
+  width: 100%;
+  height: 19rem;
+
+  @media (max-width: 959px) {
+    height: 6rem;
+  }
+
+  @media (max-width: 599px) {
+    height: 4rem;
+  }
 
   &__scroll {
     display: flex;
