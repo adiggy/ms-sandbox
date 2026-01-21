@@ -1,0 +1,116 @@
+:root {
+  --color-background: #f9f9f9;
+  --color-surface: #ffffff;
+  --color-primary: #EA1C33;
+  --color-text-primary: #1b1c1d;
+  --color-text-secondary: #69717a;
+  --color-text-tertiary: #969ba2;
+  --color-border: rgba(0, 0, 0, 0.08);
+
+  --font-headline: 'minion-pro-display', Georgia, serif;
+  --font-sans: 'proxima-nova', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  // Fluid typography variables (scales all rem-based sizes)
+  --font-from: 18;
+  --font-to: 20;
+  --vw-from: calc(1920 / 100);
+  --vw-to: calc(2400 / 100);
+  --fluid-coefficient: calc((var(--font-to) - var(--font-from)) / (var(--vw-to) - var(--vw-from)));
+  --fluid-base: calc((var(--font-from) - var(--vw-from) * var(--fluid-coefficient)) / 16);
+}
+
+@media screen and (max-width: 1920px) {
+  :root {
+    --font-from: 16;
+    --font-to: 18;
+    --vw-from: calc(1440 / 100);
+    --vw-to: calc(1920 / 100);
+  }
+}
+
+@media screen and (max-width: 1440px) {
+  :root {
+    --font-from: 14;
+    --font-to: 16;
+    --vw-from: calc(480 / 100);
+    --vw-to: calc(1440 / 100);
+  }
+}
+
+@media screen and (max-width: 480px) {
+  :root {
+    --font-from: 12;
+    --font-to: 14;
+    --vw-from: calc(320 / 100);
+    --vw-to: calc(480 / 100);
+  }
+}
+
+html {
+  font-family: var(--font-sans);
+  font-size: calc(var(--fluid-base) * 1rem + var(--fluid-coefficient) * 1vw);
+  line-height: 1.5;
+  color: var(--color-text-primary);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-background);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Heading hierarchy (all use headline font)
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-headline);
+  font-weight: 400;
+  line-height: 1.2;
+  margin: 0;
+}
+
+h1 { font-size: 4rem; }    // Page titles
+h2 { font-size: 2.5rem; }  // Section titles, card titles
+h3 { font-size: 1.75rem; } // Subsections
+h4 { font-size: 1.25rem; } // Minor headings
+h5 { font-size: 1rem; }
+h6 { font-size: 0.875rem; }
+
+.text-headline {
+  font-family: var(--font-headline);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.text-eyebrow {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.text-caption {
+  font-family: var(--font-sans);
+  font-weight: 500;
+}
+
+.text-primary {
+  color: var(--color-text-primary);
+}
+
+.text-secondary {
+  color: var(--color-text-secondary);
+}
+
+.text-tertiary {
+  color: var(--color-text-tertiary);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+
+  &:hover {
+    color: var(--color-primary);
+  }
+}

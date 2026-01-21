@@ -1,0 +1,58 @@
+[
+    {
+        "userId": "960d0927-b813-47b2-8140-001d777404b7",
+        "type": "Model",
+        "publicName": "Elizabethexpresses",
+        "avatarUrl": "https://modelsocietyimagecloud.blob.core.windows.net/modelsociety-imagecloud-avatar/Elizabethexpresses-Model-None.jpg?v=639019028347851060",
+        "slug": "elizabethexpresses",
+        "isDonor": false
+    },
+    {
+        "userId": "3b30dc15-f58f-4cac-ac4d-baa7a3273fe7",
+        "type": "Photographer",
+        "publicName": "Gregory M",
+        "avatarUrl": "https://modelsocietyimagecloud.blob.core.windows.net/modelsociety-imagecloud-avatar/Gregory-M-Photographer-None.jpg?v=636776947844439369",
+        "slug": "gregory-m",
+        "isDonor": true
+    },
+    {
+        "userId": "400ecfc4-f45f-4119-8324-7c0ee5591437",
+        "type": "Model",
+        "publicName": "Julie Romanova",
+        "avatarUrl": "https://modelsocietyimagecloud.blob.core.windows.net/modelsociety-imagecloud-avatar/Julie-Romanova-Model-None.jpg?v=638939731174914056",
+        "slug": "julie-romanova",
+        "isDonor": false
+    },
+    {
+        "userId": "de9905d9-6465-45ab-8ec2-d46f9fb97791",
+        "type": "Photographer",
+        "publicName": "Larry Hoth",
+        "avatarUrl": "https://modelsocietyimagecloud.blob.core.windows.net/modelsociety-imagecloud-avatar/Larry-Hoth-Photographer-None.jpg?v=637587802118998658",
+        "slug": "larry-hoth",
+        "isDonor": true
+    },
+    {
+        "userId": "29a0c357-7721-4c17-8a0e-d21d40f47a92",
+        "type": "Photographer",
+        "publicName": "808studioeros ",
+        "avatarUrl": "https://modelsocietyimagecloud.blob.core.windows.net/modelsociety-imagecloud-avatar/808studioeros--Photographer-None.jpg?v=638440600787547012",
+        "slug": "808studioeros",
+        "isDonor": true
+    },
+    {
+        "userId": "1324cedf-937d-4784-973b-0b9c57ac5587",
+        "type": "Photographer",
+        "publicName": "CH Studio",
+        "avatarUrl": "https://modelsocietyimagecloud.blob.core.windows.net/modelsociety-imagecloud-avatar/CH-Studio-Photographer-None.jpg?v=636773275500136501",
+        "slug": "ch-studio",
+        "isDonor": false
+    },
+    {
+        "userId": "d79e8d34-94a4-46f5-b060-d117c2fbb348",
+        "type": "Photographer",
+        "publicName": "Nestordesigns",
+        "avatarUrl": "https://modelsocietyimagecloud.blob.core.windows.net/modelsociety-imagecloud-avatar/Nestordesigns-Photographer-None.jpg?v=638869873325780623",
+        "slug": "nestordesigns",
+        "isDonor": true
+    }
+]
