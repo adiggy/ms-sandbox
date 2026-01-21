@@ -50,7 +50,7 @@ defineProps<{
     flex-shrink: 0;
 
     @media (max-width: 1199px) {
-      height: 6rem;
+      height: 10rem;
     }
 
     @media (max-width: 599px) {
