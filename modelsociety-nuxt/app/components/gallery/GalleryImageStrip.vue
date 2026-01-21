@@ -26,15 +26,7 @@ defineProps<{
   display: flex;
   overflow: hidden;
   width: 100%;
-  height: 19rem;
-
-  @media (max-width: 959px) {
-    height: 6rem;
-  }
-
-  @media (max-width: 599px) {
-    height: 4rem;
-  }
+  height: 100%;
 
   &__scroll {
     display: flex;
@@ -51,10 +43,19 @@ defineProps<{
   }
 
   &__image {
-    height: 100%;
+    height: 19rem;
     width: auto;
     object-fit: cover;
     border-radius: 4px;
+    flex-shrink: 0;
+
+    @media (max-width: 1199px) {
+      height: 6rem;
+    }
+
+    @media (max-width: 599px) {
+      height: 8rem;
+    }
   }
 
   &__gradient {

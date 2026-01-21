@@ -103,7 +103,7 @@ defineProps<{
     display: flex;
     pointer-events: none;
 
-    @media (max-width: 959px) {
+    @media (max-width: 1199px) {
       display: none;
     }
   }
@@ -115,13 +115,13 @@ defineProps<{
   &__btn--mobile {
     display: none !important;
 
-    @media (max-width: 959px) {
+    @media (max-width: 1199px) {
       display: inline-flex !important;
     }
   }
 }
 
-@media (max-width: 959px) {
+@media (max-width: 1199px) {
   .gallery-card {
     flex-direction: column;
     align-items: flex-start;

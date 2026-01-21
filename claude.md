@@ -493,6 +493,10 @@ reference/
 - Use Vuetify classes over custom CSS
 - Define reusable styles in shared files
 
+### CSS Lessons Learned
+- **Flex container height inheritance is unreliable**: `height: 100%` doesn't work reliably through nested flex containers. Instead of relying on percentage heights through a flex chain, set explicit heights directly on the element that needs them (e.g., set `height: 8rem` on the `<img>` itself, not on parent containers).
+- **When responsive heights don't apply**: If media query heights aren't working, check if a child element has its own explicit height that overrides the parent's constraint.
+
 ### Components
 - Build atoms first (base/)
 - Use Vuetify as foundation
