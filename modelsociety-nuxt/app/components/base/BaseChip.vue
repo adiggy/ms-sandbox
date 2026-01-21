@@ -21,20 +21,26 @@ const emit = defineEmits<{
 </template>
 
 <style scoped lang="scss">
+// BaseChip uses btn--tertiary (inactive) and btn--secondary (active) styling
+// Values kept in sync with shared button system in main.scss
 .base-chip {
   cursor: pointer;
   border: none;
   border-radius: 9999px;
-  padding: 0.5em 1.25em;
+  padding: 0.5rem 1.25rem;
   font-size: 0.7rem;
   letter-spacing: 0.05em;
   background-color: rgba(0, 0, 0, 0.06);
-  color: var(--color-text-secondary);
-  transition: background-color 0.2s ease, color 0.2s ease;
+  color: var(--color-text-primary);
+  transition: all 0.15s ease;
   white-space: nowrap;
 
   &:hover {
     background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  &:active {
+    background-color: rgba(0, 0, 0, 0.15);
   }
 
   &--active {
@@ -42,7 +48,11 @@ const emit = defineEmits<{
     color: white;
 
     &:hover {
-      background-color: var(--color-text-primary);
+      background-color: #000;
+    }
+
+    &:active {
+      background-color: #333;
     }
   }
 }

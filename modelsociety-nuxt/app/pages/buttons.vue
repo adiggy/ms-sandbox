@@ -164,6 +164,9 @@
 </template>
 
 <style scoped lang="scss">
+// This page demonstrates the shared button system defined in main.scss
+// All .btn classes are global - no local definitions needed
+
 .buttons-page {
   padding: 3rem;
   background-color: var(--color-background);
@@ -203,96 +206,5 @@
   flex-wrap: wrap;
   gap: 1rem;
   align-items: center;
-}
-
-// Base button styles
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  border: none;
-  cursor: pointer;
-  font-family: var(--font-sans);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  transition: all 0.15s ease;
-
-  &__text {
-    line-height: 1;
-  }
-}
-
-// Size variants
-.btn--large {
-  padding: 0.875rem 1.75rem;
-  font-size: 0.875rem;
-  border-radius: 8px;
-}
-
-.btn--small {
-  padding: 0.5rem 1.25rem;
-  font-size: 0.7rem;
-  border-radius: 9999px;
-}
-
-// Primary button
-.btn--primary {
-  background-color: var(--color-primary);
-  color: white;
-
-  &:hover {
-    background-color: #c8162b;
-  }
-
-  &:active {
-    background-color: #a01223;
-  }
-}
-
-// Secondary button (dark gray)
-.btn--secondary {
-  background-color: var(--color-text-primary);
-  color: white;
-  border: none;
-
-  &:hover {
-    background-color: #000;
-  }
-
-  &:active {
-    background-color: #333;
-  }
-}
-
-// Tertiary button (light gray, like icon backgrounds)
-.btn--tertiary {
-  background-color: rgba(0, 0, 0, 0.06);
-  color: var(--color-text-primary);
-
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.1);
-  }
-
-  &:active {
-    background-color: rgba(0, 0, 0, 0.15);
-  }
-}
-
-// Text-only button
-.btn--text {
-  background-color: transparent;
-  color: var(--color-text-primary);
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-
-  &:hover {
-    color: var(--color-primary);
-  }
-
-  &:active {
-    color: #a01223;
-  }
 }
 </style>

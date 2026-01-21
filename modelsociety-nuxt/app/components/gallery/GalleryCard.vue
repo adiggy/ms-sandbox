@@ -30,21 +30,17 @@ defineProps<{
         :comments="gallery.comments"
       />
 
-      <v-btn
-        variant="outlined"
-        size="small"
-        class="gallery-card__btn gallery-card__btn--mobile"
-      >
-        <span class="text-eyebrow">VIEW GALLERY ({{ gallery.imageCount }})</span>
-      </v-btn>
+      <button class="btn btn--primary btn--small gallery-card__btn gallery-card__btn--mobile">
+        <span class="btn__text">VIEW GALLERY ({{ gallery.imageCount }})</span>
+      </button>
     </div>
 
     <div class="gallery-card__images">
       <GalleryImageStrip :images="gallery.previewImageUrls" />
       <div class="gallery-card__btn-overlay">
-        <v-btn color="primary" size="large">
-          <span class="text-eyebrow">VIEW GALLERY ({{ gallery.imageCount }})</span>
-        </v-btn>
+        <button class="btn btn--primary btn--large">
+          <span class="btn__text">VIEW GALLERY ({{ gallery.imageCount }})</span>
+        </button>
       </div>
     </div>
   </NuxtLink>
@@ -106,18 +102,6 @@ defineProps<{
     z-index: 10;
     display: flex;
     pointer-events: none;
-
-    :deep(.v-btn) {
-      border-radius: 8px;
-      padding: 0.75rem 2rem;
-      height: auto;
-      border: none;
-      box-shadow: none;
-
-      .text-eyebrow {
-        font-size: 0.875rem;
-      }
-    }
 
     @media (max-width: 959px) {
       display: none;

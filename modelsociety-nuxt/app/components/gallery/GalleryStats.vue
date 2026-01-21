@@ -57,7 +57,7 @@ function formatNumber(num: number): string {
     justify-content: center;
     width: 1.75rem;
     height: 1.75rem;
-    background-color: rgba(0, 0, 0, 0.04);
+    background-color: rgba(0, 0, 0, 0.06); // matches btn--tertiary
     border-radius: 6px;
     line-height: 1;
   }
