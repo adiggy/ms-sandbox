@@ -35,6 +35,7 @@ defineProps<{
     scroll-behavior: smooth;
     scrollbar-width: none;
     -ms-overflow-style: none;
+    height: 100%;
 
     &::-webkit-scrollbar {
       display: none;
