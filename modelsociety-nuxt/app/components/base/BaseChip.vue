@@ -27,7 +27,7 @@ const emit = defineEmits<{
   cursor: pointer;
   border: none;
   border-radius: 9999px;
-  padding: 0.5rem 1.25rem;
+  padding: 0.75rem 1.5rem;
   font-size: 0.7rem;
   letter-spacing: 0.05em;
   background-color: rgba(0, 0, 0, 0.06);
