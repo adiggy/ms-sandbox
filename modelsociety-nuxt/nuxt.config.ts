@@ -19,7 +19,7 @@ export default defineNuxtConfig({
           vuetify({
             autoImport: true,
             styles: { configFile: 'assets/styles/vuetify-settings.scss' },
-          })
+          }),
         )
       })
     },

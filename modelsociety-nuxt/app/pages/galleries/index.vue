@@ -2,7 +2,14 @@
 import { ref } from 'vue'
 import { mockGalleries } from '~/data/mock/galleries'
 
-const categories = ['RECENTLY UPDATED', 'NEWEST', 'SHUFFLE', 'MOST POPULAR', 'MOST COMMENTED', 'MOST VIEWED']
+const categories = [
+  'RECENTLY UPDATED',
+  'NEWEST',
+  'SHUFFLE',
+  'MOST POPULAR',
+  'MOST COMMENTED',
+  'MOST VIEWED',
+]
 
 const selectedCategory = ref('RECENTLY UPDATED')
 
@@ -17,7 +24,7 @@ function selectCategory(category: string) {
       <h1 class="galleries-page__title text-headline">Curated galleries</h1>
     </section>
 
-    <section class="galleries-page__filters">
+    <section class="galleries-page__filters scrollbar-hidden">
       <div class="galleries-page__filter-chips">
         <BaseChip
           v-for="category in categories"
@@ -65,12 +72,6 @@ function selectCategory(category: string) {
     border-bottom: 1px solid var(--color-border);
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-
-    &::-webkit-scrollbar {
-      display: none;
-    }
   }
 
   &__filter-chips {

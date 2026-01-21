@@ -19,19 +19,19 @@ function formatNumber(num: number): string {
 <template>
   <div class="gallery-stats">
     <div class="gallery-stats__item">
-      <span class="gallery-stats__icon">
+      <span class="icon-box">
         <v-icon size="16">mdi-image</v-icon>
       </span>
       <span class="gallery-stats__value text-caption">{{ formatNumber(imageCount) }}</span>
     </div>
     <div class="gallery-stats__item">
-      <span class="gallery-stats__icon">
+      <span class="icon-box">
         <v-icon size="16">mdi-eye</v-icon>
       </span>
       <span class="gallery-stats__value text-caption">{{ formatNumber(views) }}</span>
     </div>
     <div class="gallery-stats__item">
-      <span class="gallery-stats__icon">
+      <span class="icon-box">
         <v-icon size="16">mdi-comment</v-icon>
       </span>
       <span class="gallery-stats__value text-caption">{{ formatNumber(comments) }}</span>
@@ -49,17 +49,6 @@ function formatNumber(num: number): string {
     display: flex;
     align-items: center;
     gap: 0.375rem;
-  }
-
-  &__icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 1.75rem;
-    height: 1.75rem;
-    background-color: rgba(0, 0, 0, 0.06); // matches btn--tertiary
-    border-radius: 6px;
-    line-height: 1;
   }
 
   &__value {

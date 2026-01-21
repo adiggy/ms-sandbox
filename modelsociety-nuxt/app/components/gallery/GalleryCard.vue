@@ -11,18 +11,7 @@ defineProps<{
     <div class="gallery-card__content">
       <h2 class="gallery-card__title text-headline">{{ gallery.title }}</h2>
 
-      <div class="gallery-card__curator">
-        <BaseAvatar
-          :src="gallery.owner.avatarUrl"
-          :name="gallery.owner.publicName"
-          size="sm"
-          variant="portrait"
-        />
-        <div class="gallery-card__curator-text">
-          <span class="text-caption text-tertiary">Curated by</span>
-          <span class="text-caption text-secondary">{{ gallery.owner.publicName }}</span>
-        </div>
-      </div>
+      <CuratorRow :curator="gallery.owner" />
 
       <GalleryStats
         :image-count="gallery.imageCount"
@@ -70,20 +59,6 @@ defineProps<{
     line-height: 1.1;
     color: var(--color-text-primary);
     margin: 0;
-  }
-
-  &__curator {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
-
-  &__curator-text {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.25rem;
-    line-height: 1;
   }
 
   &__images {

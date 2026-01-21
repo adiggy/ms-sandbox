@@ -1,7 +1,6 @@
 <script setup lang="ts">
 defineProps<{
   active?: boolean
-  size?: 'small' | 'default'
 }>()
 
 const emit = defineEmits<{

@@ -288,8 +288,53 @@ Displays image count, views, and comments with icons.
 
 ### BaseAvatar
 - Displays user avatar image or fallback initials
-- Sizes: `sm` (24px), `md` (40px), `lg` (64px)
+- Sizes: `sm` (32px), `md` (40px), `lg` (64px)
+- Variants: `circle` (default), `portrait` (23:32 aspect ratio, 4px border-radius)
 - Fallback: Gray background with white initials
+
+### GalleryImageCard
+Used on Gallery Detail page to display a single image in the feed.
+
+- Full-width image with link to image detail
+- Credits row below image:
+  - "PHOTOGRAPHER:" label + name link (red)
+  - "MODEL:" label + name link (red, optional)
+- Actions row (right-aligned):
+  - Heart icon button (circular, tertiary style)
+  - "Remove from gallery" button (owner only, tertiary + delete icon)
+
+### GalleryThumbnailGrid
+Displays a grid of clickable thumbnails at top of Gallery Detail main content.
+
+- Dark background (`--color-text-primary`)
+- CSS Grid with `auto-fill`, `minmax(5rem, 1fr)` columns
+- 0.5rem gap between thumbnails
+- "SHOW ALL (count)" button at bottom-right (tertiary style)
+- Responsive: smaller thumbnails on tablet/mobile
+
+### CommentsSection
+Full comments UI used in sidebar (desktop) and drawer (mobile).
+
+- Login prompt box (if not logged in): "You must be logged in..." with LOGIN/JOIN buttons
+- CommentInput (if logged in): avatar + textarea + submit button
+- Header row: comment icon + "X comments" count
+- List of CommentThread components
+- "Load More" button (if more comments exist)
+
+### CommentThread
+Single comment with recursive nested replies.
+
+- Avatar + author name (red link) + comment text + REPLY button
+- Replies indented with arrow icon (`mdi-subdirectory-arrow-right`)
+- Recursive: replies can have their own replies
+
+### CommentsDrawer
+Mobile bottom sheet for comments (Vuetify `v-bottom-sheet`).
+
+- Header with comment count + close button
+- Scrollable content area with CommentsSection
+- Max height: 80vh
+- Rounded top corners (16px)
 
 ---
 
@@ -374,15 +419,36 @@ reference/
 
 ### 3. Gallery Detail
 **Reference:** `gallery-detail.jpg`, `gallery-detail-comments_drawer.jpg`
+**Route:** `/galleries/[slug]`
+**Status:** ✅ Phase 1 complete (static with mock data)
 
-**Desktop:**
-- Left sidebar: Gallery title, curator, stats, edit options, more galleries, comments
-- Main content: Vertical image feed with photographer/model credits
+**Desktop Layout (CSS Grid: `21rem 1fr`):**
+- **Left sidebar** (sticky, scrollable):
+  - Gallery title (H1, 2.5rem)
+  - Curator row (BaseAvatar portrait + "Curated by" link)
+  - GalleryStats component
+  - Edit section (owner only): Edit Title, Edit Description, Delete Gallery buttons
+  - "More galleries by [user]" section with linked gallery names
+  - CommentsSection (login prompt + input + threads)
+- **Main content:**
+  - GalleryThumbnailGrid (2 rows, auto-fill columns, dark background, "SHOW ALL" button)
+  - Vertical feed of GalleryImageCard components
 
-**Mobile:**
-- Sidebar collapses to top section
-- "VIEW THUMBNAILS" button
-- **Bottom drawer** for comments (Vuetify `v-bottom-sheet`)
+**Mobile/Tablet (≤959px):**
+- Single column layout
+- Sidebar content stacks at top
+- "See All Comments" button triggers CommentsDrawer (v-bottom-sheet)
+- CommentsSection hidden from sidebar
+
+**Components Used:**
+- `GalleryStats` - Reused from Galleries Overview
+- `BaseAvatar` - Curator avatar (variant="portrait")
+- `GalleryThumbnailGrid` - New: thumbnail grid with auto-fill columns
+- `GalleryImageCard` - New: image + credits row + actions
+- `CommentsSection` - New: login prompt + input + threads
+- `CommentsDrawer` - New: mobile bottom sheet wrapper
+- `CommentThread` - New: single comment with nested replies
+- `CommentInput` - New: textarea + submit button
 
 ### 4. Image Detail
 **Reference:** `image-detail.jpg`
@@ -587,28 +653,162 @@ The photo scroll heights must be set in **TWO files** to stay in sync:
 
 ---
 
+## New Page Development Workflow
+
+When building a new page, follow this structured approach to achieve the best of both worlds: pixel-perfect fidelity to the designs while using best-practice code architecture.
+
+### Phase 1: Visual Discovery
+
+**Review the screenshots first** (not the code):
+1. Open the relevant screenshots in `reference/Adrial-dark-mode-designs/modelsociety.webflow-screenshots/`
+2. Study the overall layout, visual hierarchy, and spacing rhythm
+3. Note the responsive behavior (desktop vs mobile screenshots)
+4. Identify distinct UI regions and their relationships
+5. **Remember:** Screenshots show dark mode—mentally translate to light mode palette
+
+**Document your observations:**
+- What are the major layout sections?
+- What's the visual hierarchy (what draws the eye first)?
+- How do elements relate spatially?
+- What interactive states are implied?
+
+### Phase 2: Component Inventory
+
+**Before looking at webflow code, audit existing components:**
+
+```bash
+# Check what base components exist
+ls app/components/base/
+
+# Check what feature components exist
+ls app/components/gallery/
+ls app/components/comment/
+# etc.
+
+# Review existing styles
+cat app/assets/styles/main.scss
+```
+
+**Create a reuse checklist:**
+- [ ] Which existing components can be used as-is?
+- [ ] Which existing components need minor props/slots added?
+- [ ] Which existing CSS classes already handle needed styles?
+- [ ] What typography classes from `main.scss` apply?
+- [ ] What button variants from the button system apply?
+
+### Phase 3: Webflow Extraction (Values Only)
+
+**Now open the webflow HTML/CSS—but only to extract specific values:**
+
+From `reference/Adrial-dark-mode-designs/modelsociety.webflow/`:
+1. Open the relevant `.html` file
+2. Open `css/modelsociety.webflow.css`
+
+**Extract these specific values:**
+| Value Type | What to Look For | Example |
+|------------|------------------|---------|
+| Spacing | `padding`, `margin`, `gap` | `padding: 1.5rem 2rem` |
+| Sizing | `width`, `height`, `max-width` | `max-width: 21rem` |
+| Typography | `font-size`, `line-height`, `letter-spacing` | `font-size: 0.7rem` |
+| Layout | `grid-template-columns`, `flex` ratios | `grid-template-columns: 21rem 1fr` |
+| Borders | `border-radius`, `border-width` | `border-radius: 8px` |
+| Breakpoints | `@media` query values | `max-width: 959px` |
+
+**Do NOT extract:**
+- Class naming conventions
+- HTML structure/nesting patterns
+- CSS organization approach
+- Component boundaries (webflow doesn't componentize)
+
+### Phase 4: Architecture Planning
+
+**Design the component tree from scratch:**
+
+Think about:
+1. What's the most semantic HTML structure?
+2. Where are the natural component boundaries?
+3. What props make components flexible but not over-engineered?
+4. How can styles be shared via CSS classes vs component props?
+
+**Apply these principles:**
+
+| Principle | Good | Bad |
+|-----------|------|-----|
+| Component granularity | One clear responsibility | Mega-component with many concerns |
+| Props | Essential configuration only | Props for every style variation |
+| CSS | Shared classes in `main.scss` | Duplicate styles in each component |
+| Nesting | Flat when possible | Deep nesting matching webflow structure |
+| Naming | Semantic (`.gallery-stats`) | Presentational (`.flex-row-gap-4`) |
+
+### Phase 5: Implementation Order
+
+**Build in this sequence:**
+
+1. **Shared styles first**: Add any new utility classes or patterns to `main.scss`
+2. **Base components**: Create/extend `base/` components if needed
+3. **Feature components**: Build feature-specific components (smallest to largest)
+4. **Page composition**: Assemble components in the page file
+5. **Responsive refinement**: Add breakpoint-specific adjustments
+
+### Phase 6: Quality Checklist
+
+Before considering a page complete:
+
+**Visual fidelity:**
+- [ ] Matches screenshot layout at desktop width
+- [ ] Matches screenshot layout at mobile width
+- [ ] Spacing/sizing values match webflow extraction
+- [ ] Light mode colors correctly applied
+
+**Code quality:**
+- [ ] No duplicate styles (check if `main.scss` has what you need)
+- [ ] No duplicate components (check existing components first)
+- [ ] Component props are minimal and purposeful
+- [ ] CSS uses project conventions (BEM-ish naming, theme variables)
+- [ ] TypeScript types are defined and used
+
+**Responsive behavior:**
+- [ ] Uses project breakpoints (599px, 1199px)
+- [ ] Mobile-specific interactions work (drawers, collapsed sections)
+- [ ] No horizontal scroll on mobile (unless intentional)
+
+### Anti-Patterns to Avoid
+
+| Anti-Pattern | Why It's Bad | Better Approach |
+|--------------|--------------|-----------------|
+| Copying webflow class names | Creates inconsistent naming | Use project BEM conventions |
+| Matching webflow HTML nesting | Over-nested, hard to maintain | Flatten structure, use CSS grid/flex |
+| One-off inline styles | Not reusable, hard to maintain | Add to `main.scss` if used 2+ times |
+| New component for every element | Component explosion | Use slots, CSS classes, or composition |
+| Hardcoded colors/fonts | Breaks theme system | Use CSS variables from theme |
+| Responsive classes from webflow | Doesn't match our breakpoints | Use our standard media queries |
+
+---
+
 ## Nuxt Project Structure
 
 ```
-modelsociety-nuxt/
+modelsociety-nuxt/app/
 ├── assets/
-│   ├── fonts/              # Gotham-Bold.otf, Gotham-Medium.otf
 │   └── styles/
-│       ├── fonts.scss      # @font-face declarations
-│       └── main.scss       # Global styles
+│       └── main.scss       # Global styles, button system, typography
 ├── components/
 │   ├── base/               # BaseCard, BaseChip, BaseAvatar
-│   ├── common/             # AppHeader, AppFooter, AppNav
-│   ├── gallery/            # GalleryCard, GalleryStats, GalleryImageStrip
-│   ├── member/             # MemberCard, MemberGrid
-│   └── image/              # ImageCard, ImageShowcase
+│   ├── common/             # AppHeader, AppFooter
+│   ├── comment/            # CommentInput, CommentThread, CommentsSection, CommentsDrawer
+│   ├── gallery/            # GalleryCard, GalleryStats, GalleryImageStrip, GalleryImageCard, GalleryThumbnailGrid
+│   ├── member/             # (Phase 2+)
+│   └── image/              # (Phase 2+)
 ├── composables/            # useApi, useAuth (Phase 3+)
 ├── data/
-│   └── mock/               # Hardcoded data for Phase 1
+│   └── mock/
+│       ├── galleries.ts    # Galleries overview mock data
+│       └── galleryDetail.ts # Gallery detail mock data
 ├── layouts/
 │   └── default.vue         # Main layout
 ├── pages/
-│   ├── index.vue           # Home
+│   ├── index.vue           # Home (redirects to /galleries)
+│   ├── buttons.vue         # Button showcase page
 │   └── galleries/
 │       ├── index.vue       # Galleries overview
 │       └── [slug].vue      # Gallery detail
@@ -616,9 +816,9 @@ modelsociety-nuxt/
 │   └── vuetify.ts          # Theme configuration
 ├── stores/                 # Pinia stores (Phase 3+)
 ├── types/
-│   ├── gallery.ts
-│   ├── member.ts
-│   └── image.ts
+│   ├── index.ts            # Re-exports
+│   ├── gallery.ts          # GalleryPreview, GalleryImage, GalleryDetail, Comment, GalleryLink
+│   └── member.ts           # MemberBrief, MemberType
 ├── biome.json
 ├── nuxt.config.ts
 └── tsconfig.json

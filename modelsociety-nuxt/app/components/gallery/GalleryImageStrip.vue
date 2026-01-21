@@ -6,7 +6,7 @@ defineProps<{
 
 <template>
   <div class="gallery-image-strip">
-    <div class="gallery-image-strip__scroll">
+    <div class="gallery-image-strip__scroll scrollbar-hidden">
       <img
         v-for="(url, index) in images"
         :key="index"
@@ -33,13 +33,7 @@ defineProps<{
     gap: 0.5rem;
     overflow-x: auto;
     scroll-behavior: smooth;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
     height: 100%;
-
-    &::-webkit-scrollbar {
-      display: none;
-    }
   }
 
   &__image {
