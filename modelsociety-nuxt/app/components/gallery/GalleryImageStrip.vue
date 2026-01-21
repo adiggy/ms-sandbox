@@ -1,12 +1,11 @@
 <script setup lang="ts">
 defineProps<{
   images: string[]
-  height?: string
 }>()
 </script>
 
 <template>
-  <div class="gallery-image-strip" :style="{ height: height ?? '19rem' }">
+  <div class="gallery-image-strip">
     <div class="gallery-image-strip__scroll">
       <img
         v-for="(url, index) in images"
@@ -27,6 +26,7 @@ defineProps<{
   display: flex;
   overflow: hidden;
   flex: 1;
+  height: 100%;
 
   &__scroll {
     display: flex;
