@@ -1,0 +1,21 @@
+# Reference files (large, not needed for deployment)
+reference/
+
+# Dependencies (Vercel installs these)
+node_modules/
+
+# Build outputs (Vercel generates these)
+.nuxt/
+.output/
+dist/
+
+# IDE
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Data files (seed data, not needed at runtime)
+data/seed/
