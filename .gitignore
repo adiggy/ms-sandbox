@@ -24,3 +24,5 @@ Thumbs.db
 # Reference files (large/proprietary)
 reference/from-Konstantin/Assets/
 reference/*.otf
+.vercel
+.env*.local
